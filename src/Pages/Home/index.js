@@ -5,7 +5,7 @@ import { Text } from 'react-native';
 import banner from '../../assets/img/banner.png';
 import Button from '../../components/Button';
 
-export default function Home(){
+export default function Home({navigation}){
     return(
       <>
         <StatusBar style="theme-dark" />
@@ -17,8 +17,8 @@ export default function Home(){
             <Text>Para descobrir restaurantes que entreguem em sua região</Text>                        
           </View>
           <ButtonContainer>
-            <Button text="Pular" onPress={() =>{}} />
-            <Button  text="Entrar" onPress={() =>{}} theme="primary"/>            
+            <Button text="PULAR" onPress={() => navigation.navigate('Main')} />
+            <Button  text="ENTRAR" onPress={() =>{}} theme="primary"/>            
           </ButtonContainer>
         </SafeAreaView>
       </>

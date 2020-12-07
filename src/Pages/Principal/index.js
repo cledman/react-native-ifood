@@ -1,7 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { Text, Alert, ActivityIndicator } from 'react-native';
+import CategoriaItem from '../../components/CategoriaItem';
 import RestaurantItem from '../../components/RestauranteItem';
+import BannerItem from '../../components/BannerItem';
 import { 
   SafeAreaView, 
   Image, 
@@ -9,15 +11,22 @@ import {
   ButtonContainer, 
   ViewRestaurants,
   RestaurantsTitle, 
-  ViewPrincipal
+  ViewPrincipal,
+  CategoriaView,
+  BannerView,
+  SelectTipo,
+  ButtonTipoSelect,
+  TextTipoSelect
 } from './style';
+import Button from '../../components/Button';
 
 export default function Principal() {
 
   const [banners, setBanner] = useState([]);
-  const [category, setCategory] = useState([]);  
+  const [categories, setCategory] = useState([]);  
   const [restaurants, setRestaurant] = useState([]);    
   const [loaded, setLoaded] = useState(false);
+  const [tipo, setTipo] = useState('Entrega');  
 
   useEffect( () =>{
 
@@ -42,6 +51,30 @@ export default function Principal() {
   const  ViewHome = (props) =>{
     return(
       <ViewPrincipal>
+        <SelectTipo>
+          <ButtonTipoSelect onPress={() => setTipo('Entrega')}>
+            <TextTipoSelect selected={tipo == 'Entrega'}>
+               Entrega
+            </TextTipoSelect>
+          </ButtonTipoSelect>
+          <ButtonTipoSelect onPress={() => setTipo('Retirada')}>
+            <TextTipoSelect selected={tipo == 'Retirada'}>
+               Retirada
+            </TextTipoSelect>
+          </ButtonTipoSelect>          
+        </SelectTipo>
+        <CategoriaView horizontal={true} showsHorizontalScrollIndicator={false}>
+          {categories.map(category => (
+            <CategoriaItem key={category.id} foto={category.img_url}  texto={category.nome}/>
+          ))}
+        </CategoriaView>
+
+        <BannerView horizontal={true} showsHorizontalScrollIndicator={false}>
+          {banners.map(banner => (
+            <BannerItem key={banner.id} foto={banner.banner_img_url}/>
+          ))}
+        </BannerView>        
+
         <RestaurantsTitle>Restaurantes</RestaurantsTitle>
         <ViewRestaurants>
           {restaurants.map(restaurante =>(
